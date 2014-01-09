@@ -61,7 +61,7 @@ module.exports = function(grunt) {
         grunt.verbose.writeln("skipping " + data.resource, data.reason);
       }).on("end", function (result) {
         // write the contents to destination
-        grunt.file.write(task.destfile, result);
+        grunt.file.write(task.output, result);
         next();
       });
     }, done);
