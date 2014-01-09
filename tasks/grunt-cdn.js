@@ -44,7 +44,7 @@ module.exports = function(grunt) {
       });
     });
     
-    async.parallel(tasks, function(task) {
+    async.each(tasks, function(task, next) {
       var type = task.type,
           content = grunt.file.read(task.input).toString(),
           job;
@@ -62,6 +62,7 @@ module.exports = function(grunt) {
       }).on("end", function (result) {
         // write the contents to destination
         grunt.file.write(task.destfile, result);
+        next();
       });
     }, done);
     
