@@ -12,9 +12,10 @@ var Job = function(options) {
 };
 util.inherits(Job, EventEmitter);
 
-Job.prototype.start = function (content) {
+Job.prototype.start = function (content, callback) {
   var self = this;
   this.buffer = content;
+  
   setTimeout(function() {
     var result = self.run();
     self.emit("end", result);
@@ -31,7 +32,9 @@ Job.prototype._replace = function (resource) {
   var options = this.options,
       self = this,
       ignorePath = this.options.ignorePath,
-      relativeTo = this.options.cdn;
+      relativeTo = this.options.cdn,
+      i,
+      len;
 
   // absolute urls will not be passed into this function
   // skip those absolute urls
@@ -45,7 +48,7 @@ Job.prototype._replace = function (resource) {
 
   if (ignorePath) {
     if (Array.isArray(ignorePath)) {
-      for (var i = 0, len = ignorePath.length; i < len; ++i) {
+      for (i = 0, len = ignorePath.length; i < len; ++i) {
         if (resource.match(ignorePath[i])) {
           self.emit("ignore", {
             resource: resource,
