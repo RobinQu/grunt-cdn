@@ -7,11 +7,13 @@
     "name": "Johnny Halife",
     "url": "http://github.com/johnnyhalife/"
   },
-  "contributors": [{
-    "name": "RobinQu",
-    "email": "robinqu@gmail.com",
-    "url": "http://robinqu.me/"
-  }],
+  "contributors": [
+    {
+      "name": "RobinQu",
+      "email": "robinqu@gmail.com",
+      "url": "http://robinqu.me/"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/tactivos/grunt-cdn.git"
@@ -37,5 +39,8 @@
   "keywords": [
     "gruntplugin",
     "cdn"
-  ]
+  ],
+  "dependencies": {
+    "async": "~0.2.9"
+  }
 }
