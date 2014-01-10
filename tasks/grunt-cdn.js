@@ -7,6 +7,7 @@
 module.exports = function(grunt) {
   // var url = require('url');
   var path = require('path'),
+      fs = require('fs'),
       async = require('async'),
       ParserConfig = require('./lib/parser_config');
 
@@ -46,7 +47,6 @@ module.exports = function(grunt) {
     
     async.each(tasks, function(task, next) {
       var type = task.type,
-          content = grunt.file.read(task.input).toString(),
           job;
           
       if (supportedTypes[type] === "html") {
@@ -54,15 +54,20 @@ module.exports = function(grunt) {
       } else if (supportedTypes[type] === "css") {
         job = engine.css(options);
       }
-      
-      job.start(content).on("entry", function (data) {
-        grunt.log.writeln('Changing ' + data.before.cyan + ' -> ' + data.after.cyan);
-      }).on("ignore", function (data) {
-        grunt.verbose.writeln("skipping " + data.resource, data.reason);
-      }).on("end", function (result) {
-        // write the contents to destination
-        grunt.file.write(task.output, result);
-        next();
+      fs.readFile(task.input, "utf8", function(e, data) {
+        if(e) {
+          return next(e);
+        }
+        job.start(data).on("entry", function (data) {
+          grunt.log.writeln('Changing ' + data.before.cyan + ' -> ' + data.after.cyan);
+        }).on("ignore", function (data) {
+          grunt.verbose.writeln("skipping " + data.resource, data.reason);
+        }).on("end", function (result) {
+          // write the contents to destination
+          grunt.file.write(task.output, result);
+          next();
+        });
+        
       });
     }, done);
     
