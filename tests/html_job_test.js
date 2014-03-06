@@ -45,7 +45,7 @@ describe('HTML Job', function() {
               $before = cheerio.load(Snippets.str4);
           expect(callback.calledOnce).to.be.true;
           data = callback.firstCall.args[0];
-          expect(data.before).to.equal($before('div').data('src'));
+          expect(data.before).to.equal($before('div').data('placeholder'));
           expect(data.after).to.equal(url.resolve(globalConfig.cdn, "b.png"));
           done();
         }, 50);

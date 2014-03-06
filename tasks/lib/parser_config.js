@@ -14,7 +14,7 @@ module.exports = {
     },
     {
       splitters: ['data-'],
-      rgx: new RegExp(/data-(?!main).[^=]+=['"]([^'"]+)['"]/i)
+      rgx: new RegExp(/.[^=]+=['"]([^'"]+)['"]/i)
     }
   ],
   regcss: new RegExp(/url\(([^)]+)\)/ig),

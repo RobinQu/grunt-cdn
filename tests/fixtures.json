@@ -8,5 +8,5 @@
   "css1": "#a {background:url(a.gif)}; #b {background:url(/b.png)}",
   "css2": "#a {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/a.png',sizingMethod='scale');}",
   "css3": "#a {background:url(/a.png);}",
-  "str4": "<div data-src='/b.png'>/b.png</div>"
+  "str4": "<div data-placeholder='/b.png'>/b.png</div>"
 }
