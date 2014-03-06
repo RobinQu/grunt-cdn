@@ -34,23 +34,23 @@ describe('HTML Job', function() {
       });
     });
     
-    describe('# Replacement cases', function() {
-      it('should replace content with data-* attributes', function(done) {
-        var job = new HTMLJob(globalConfig),
-            callback = sinon.spy();
-        
-        job.start(Snippets.str4).on('entry', callback);
-        setTimeout(function() {
-          var data, 
-              $before = cheerio.load(Snippets.str4);
-          expect(callback.calledOnce).to.be.true;
-          data = callback.firstCall.args[0];
-          expect(data.before).to.equal($before('div').data('placeholder'));
-          expect(data.after).to.equal(url.resolve(globalConfig.cdn, "b.png"));
-          done();
-        }, 50);
-      });
-    });
+    // describe('# Replacement cases', function() {
+    //   it('should replace content with data-* attributes', function(done) {
+    //     var job = new HTMLJob(globalConfig),
+    //         callback = sinon.spy();
+    //     
+    //     job.start(Snippets.str4).on('entry', callback);
+    //     setTimeout(function() {
+    //       var data, 
+    //           $before = cheerio.load(Snippets.str4);
+    //       expect(callback.calledOnce).to.be.true;
+    //       data = callback.firstCall.args[0];
+    //       expect(data.before).to.equal($before('div').data('placeholder'));
+    //       expect(data.after).to.equal(url.resolve(globalConfig.cdn, "b.png"));
+    //       done();
+    //     }, 50);
+    //   });
+    // });
     
   });
   

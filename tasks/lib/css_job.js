@@ -1,6 +1,6 @@
 var Job = require('./job'),
     util = require('util'),
-    ParserConfig = require('./parser_config'),
+    ParserConfig = require('./engine').SharedParserConfig,
     grunt = require('grunt');
 
 var CSSJob = function() {

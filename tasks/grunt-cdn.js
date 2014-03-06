@@ -9,7 +9,7 @@ module.exports = function(grunt) {
   var path = require('path'),
       fs = require('fs'),
       async = require('async'),
-      ParserConfig = require('./lib/parser_config');
+      ParserConfig = require('./lib/engine').SharedParserConfig;
 
   grunt.registerMultiTask('cdn', "Properly prepends a CDN url to those assets referenced with absolute paths (but not URLs)", function() {
     var done = this.async(),
@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         engine = require('./lib/engine'),
         options = this.options(),
         key,
-        supportedTypes = Object.create(ParserConfig.supportedTypes),
+        supportedTypes = ParserConfig.supportedTypes,
         tasks = [];
 
     for(key in options.supportedTypes){
@@ -25,7 +25,13 @@ module.exports = function(grunt) {
         supportedTypes[key] = options.supportedTypes[key];
       }
     }
-
+    
+    if(options.parserConfig) {
+      options.parserConfig.forEach(function(item) {
+        engine.registerParser(item.type, item.config);
+      });
+    }
+    
     files.forEach(function(file) {
       file.src.forEach(function (filepath) {
         var type = path.extname(filepath).replace(/^\./, ''),
